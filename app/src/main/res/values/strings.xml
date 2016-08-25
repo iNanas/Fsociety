@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Fsociety</string>
+
+    <string name="on_the_air_shows">On the Air</string>
+    <string name="popular_shows">Popular</string>
+    <string name="top_rated_shows">Top rated</string>
+    <string name="open_watch_list">My WatchList</string>
+    <string name="watch_trailer">Watch trailer</string>
+    <string name="add_to_watch_list">Add to WatchList</string>
+</resources>

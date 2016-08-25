@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_watch_list"
+        android:title="@string/open_watch_list"
+        android:icon="@drawable/ic_watchlist"
+        app:showAsAction="ifRoom|withText"/>
+
+    <item
+        android:id="@+id/menu_on_the_air"
+        android:title="@string/on_the_air_shows"/>
+    <item
+        android:id="@+id/menu_top_rated"
+        android:title="@string/top_rated_shows" />
+    <item
+        android:id="@+id/menu_popular"
+        android:title="@string/popular_shows" />
+
+
+
+</menu>
