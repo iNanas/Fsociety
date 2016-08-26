@@ -1,5 +1,7 @@
 package com.mlp.elrond.fsociety;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,6 +10,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
@@ -104,6 +107,7 @@ public class DetailTVFragment  extends Fragment {
                                     new ManageSharedPref().removeTvShow(getActivity(), mTvShows);
                                     mSaveToSP.setText("Add to WatchList");
                                     mSaveToSP.setBackgroundColor(Color.parseColor("#607d8b"));
+                                    raiseNotification();
                                 }
                             })
                             .setNegativeButton("Nope", new DialogInterface.OnClickListener() {
@@ -159,5 +163,16 @@ public class DetailTVFragment  extends Fragment {
         }
     }
 
+    private void raiseNotification(){
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getActivity());
+        builder.setAutoCancel(true)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setContentTitle(mTvShows.getName())
+                .setContentText("Deleted from WatchList")
+                .setSmallIcon(android.R.drawable.stat_sys_warning);
+
+        NotificationManager mgr= (NotificationManager) getActivity().getSystemService(getActivity().NOTIFICATION_SERVICE);
+        mgr.notify(442268189, builder.build());
+    }
 
 }
