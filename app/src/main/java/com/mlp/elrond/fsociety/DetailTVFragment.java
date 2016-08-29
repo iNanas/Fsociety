@@ -1,5 +1,6 @@
 package com.mlp.elrond.fsociety;
 
+import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.ActivityNotFoundException;
@@ -9,10 +10,11 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
-import android.text.format.DateFormat;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -134,7 +136,10 @@ public class DetailTVFragment  extends Fragment {
             @Override
             public void onClick(View view) {
                 mTvShows.setOnAirDate(new Date());
-                mSetOnAirDate.setText(DateFormat.format("EEEE, MMMM d, y", mTvShows.getOnAirDate()));
+                FragmentManager manager = getFragmentManager();
+                SetOnAirDate dialog = new SetOnAirDate();
+                dialog.show(manager, "DialogDate");
+                //mSetOnAirDate.setText(DateFormat.format("EEEE, MMMM d, y", mTvShows.getOnAirDate()));
             }
         });
 
@@ -162,6 +167,18 @@ public class DetailTVFragment  extends Fragment {
         }
     }
 
+    private void raiseNotification(){
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getActivity());
+        builder.setAutoCancel(true)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setContentTitle(mTvShows.getName())
+                .setContentText("Deleted from WatchList")
+                .setSmallIcon(android.R.drawable.stat_sys_warning);
+
+        NotificationManager mgr= (NotificationManager) getActivity().getSystemService(getActivity().NOTIFICATION_SERVICE);
+        mgr.notify(442268189, builder.build());
+    }
+
     private class GetTrailerAsyncTask extends AsyncTask<Void, Void, String> {
 
         @Override
@@ -175,16 +192,15 @@ public class DetailTVFragment  extends Fragment {
         }
     }
 
-    private void raiseNotification(){
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getActivity());
-        builder.setAutoCancel(true)
-                .setDefaults(Notification.DEFAULT_ALL)
-                .setContentTitle(mTvShows.getName())
-                .setContentText("Deleted from WatchList")
-                .setSmallIcon(android.R.drawable.stat_sys_warning);
-
-        NotificationManager mgr= (NotificationManager) getActivity().getSystemService(getActivity().NOTIFICATION_SERVICE);
-        mgr.notify(442268189, builder.build());
+    private class SetOnAirDate  extends DialogFragment {
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            View v = LayoutInflater.from(getActivity()).inflate(R.layout.date_picker, null);
+            return new AlertDialog.Builder(getActivity())
+                    .setView(v)
+                    .setTitle("Set On the Air Date")
+                    .setPositiveButton("Do it!", null)
+                    .create();
+        }
     }
-
 }
