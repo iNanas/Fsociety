@@ -7,4 +7,5 @@
     <string name="open_watch_list">My WatchList</string>
     <string name="watch_trailer">Watch trailer</string>
     <string name="add_to_watch_list">Add to WatchList</string>
+    <string name="on_air_date_default">Set On the Air Date</string>
 </resources>

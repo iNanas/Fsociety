@@ -3,6 +3,8 @@ package com.mlp.elrond.fsociety;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Date;
+
 public class TvShows implements Parcelable {
     private String mName;
     private String mPosterUrl;
@@ -11,6 +13,7 @@ public class TvShows implements Parcelable {
     private String mFAD;
     private String mRatings;
     private String mShowId;
+    private Date mOnAirDate;
 
     public TvShows() {
 
@@ -77,6 +80,14 @@ public class TvShows implements Parcelable {
         mShowId = showId;
     }
 
+    public Date getOnAirDate() {
+        return mOnAirDate;
+    }
+
+    public void setOnAirDate(Date onAirDate) {
+        mOnAirDate = onAirDate;
+    }
+
     protected TvShows(Parcel in) {
         mName = in.readString();
         mPosterUrl = in.readString();
@@ -85,6 +96,8 @@ public class TvShows implements Parcelable {
         mFAD = in.readString();
         mRatings = in.readString();
         mShowId = in.readString();
+        long tmpMOnAirDate = in.readLong();
+        mOnAirDate = tmpMOnAirDate != -1 ? new Date(tmpMOnAirDate) : null;
     }
 
     @Override
@@ -101,6 +114,7 @@ public class TvShows implements Parcelable {
         dest.writeString(mFAD);
         dest.writeString(mRatings);
         dest.writeString(mShowId);
+        dest.writeLong(mOnAirDate != null ? mOnAirDate.getTime() : -1L);
     }
 
     @SuppressWarnings("unused")

@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
+import android.text.format.DateFormat;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class DetailTVFragment  extends Fragment {
     private static final String OBJECT = "tv_show_id";
@@ -39,6 +41,7 @@ public class DetailTVFragment  extends Fragment {
     private TextView mShowRatings;
     private Button mYTButton;
     private Button mSaveToSP;
+    private Button mSetOnAirDate;
 
     public static DetailTVFragment newInstance( TvShows show){
         Bundle args = new Bundle();
@@ -98,9 +101,9 @@ public class DetailTVFragment  extends Fragment {
             @Override
             public void onClick(View view) {
                 if(mSaveToSP.getText().equals("Delete from list?") || mSaveToSP.getText().equals("Added! Delete it?")){
-                    //Toast.makeText(getActivity(), "Already in your FUCKING LIST!", Toast.LENGTH_SHORT).show();
-
-                    new AlertDialog.Builder(getActivity()).setTitle("Confirmation").setMessage("Delete this TV show from WatchList?")
+                    new AlertDialog.Builder(getActivity())
+                            .setTitle("Confirmation")
+                            .setMessage("Delete this TV show from WatchList?")
                             .setPositiveButton("Yep!", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -123,6 +126,15 @@ public class DetailTVFragment  extends Fragment {
                     mSaveToSP.setBackgroundColor(Color.parseColor("#37474f"));
                 }
 
+            }
+        });
+
+        mSetOnAirDate = (Button) v.findViewById(R.id.onAirDate);
+        mSetOnAirDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mTvShows.setOnAirDate(new Date());
+                mSetOnAirDate.setText(DateFormat.format("EEEE, MMMM d, y", mTvShows.getOnAirDate()));
             }
         });
 
