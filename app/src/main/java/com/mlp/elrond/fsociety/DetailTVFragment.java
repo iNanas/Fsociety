@@ -12,9 +12,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
+import android.text.format.DateFormat;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,8 +58,6 @@ public class DetailTVFragment  extends Fragment {
         super.onCreate(savedInstanceState);
         mTvShows = getArguments().getParcelable(OBJECT);
         new GetTrailerAsyncTask().execute();
-        //title_test = getActivity().getIntent().getStringExtra(DetailTVActivity.SHOW_TITLE);
-
     }
 
     @Override
@@ -132,14 +130,18 @@ public class DetailTVFragment  extends Fragment {
         });
 
         mSetOnAirDate = (Button) v.findViewById(R.id.onAirDate);
+        if(mTvShows.getOnAirDate() != null){
+            mSetOnAirDate.setText(DateFormat.format("EEEE, MMMM d, y", mTvShows.getOnAirDate()));
+        }
         mSetOnAirDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mTvShows.setOnAirDate(new Date());
-                FragmentManager manager = getFragmentManager();
-                SetOnAirDate dialog = new SetOnAirDate();
-                dialog.show(manager, "DialogDate");
-                //mSetOnAirDate.setText(DateFormat.format("EEEE, MMMM d, y", mTvShows.getOnAirDate()));
+                if(mTvShows.getOnAirDate() == null){
+                    mTvShows.setOnAirDate(new Date());
+                    mSetOnAirDate.setText(DateFormat.format("EEEE, MMMM d, y", mTvShows.getOnAirDate()));
+                }else{
+                    Toast.makeText(getActivity(), "Temporary not changeable :(", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

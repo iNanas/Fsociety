@@ -54,7 +54,7 @@ public class TVFragment extends Fragment {
 
     private void setupAdapter(List<TvShows> tvshows) {
         if (isAdded()) {
-            mTvRv.setAdapter(new MyAdapter(tvshows));
+            mTvRv.setAdapter(new TvShowsAdapter(tvshows));
         }
     }
 
@@ -93,11 +93,11 @@ public class TVFragment extends Fragment {
 
     }
 
-    private class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    private class PostersViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private ImageView mPosterImageView;
         private TvShows mTvShow;
 
-        public MyViewHolder(View itemView) {
+        public PostersViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             mPosterImageView = (ImageView) itemView.findViewById(R.id.img_view);
@@ -118,20 +118,20 @@ public class TVFragment extends Fragment {
         }
     }
 
-    private class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
+    private class TvShowsAdapter extends RecyclerView.Adapter<PostersViewHolder> {
         private List<TvShows> mShowList;
 
-        public MyAdapter(List<TvShows> showList) {
+        public TvShowsAdapter(List<TvShows> showList) {
             mShowList = showList;
         }
 
         @Override
-        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new MyViewHolder(LayoutInflater.from(getActivity()).inflate(R.layout.display_image, parent, false));
+        public PostersViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            return new PostersViewHolder(LayoutInflater.from(getActivity()).inflate(R.layout.display_image, parent, false));
         }
 
         @Override
-        public void onBindViewHolder(MyViewHolder holder, int position) {
+        public void onBindViewHolder(PostersViewHolder holder, int position) {
             holder.bindImage(mShowList.get(position));
         }
 
