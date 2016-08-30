@@ -103,7 +103,8 @@ public class DetailTVFragment  extends Fragment {
         mSaveToShrPrfButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mSaveToShrPrfButton.getText().equals("Delete from list?") || mSaveToShrPrfButton.getText().equals("Added! Delete it?")){
+                if(mSaveToShrPrfButton.getText().equals("Delete from list?")
+                        || mSaveToShrPrfButton.getText().equals("Added! Delete it?")){
                     new AlertDialog.Builder(getActivity())
                             .setTitle("Confirmation")
                             .setMessage("Delete this TV show from WatchList?")
@@ -140,6 +141,7 @@ public class DetailTVFragment  extends Fragment {
         mSetDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 FragmentManager manager = getFragmentManager();
                 SetOnAirDate calendar = new SetOnAirDate();
                 calendar.show(manager, "MyDate");
@@ -166,7 +168,10 @@ public class DetailTVFragment  extends Fragment {
             if(temp_show_list.get(i).getShowId().equals(mTvShows.getShowId())){
                 mSaveToShrPrfButton.setText("Delete from list?");
                 mSaveToShrPrfButton.setBackgroundColor(Color.parseColor("#37474f"));
-                mSetDateButton.setText(DateFormat.format("EEEE, MMMM d, yyyy", temp_show_list.get(i).getOnAirDate()));
+                if(temp_show_list.get(i).getOnAirDate() != null){
+                    mSetDateButton.setText(DateFormat.format("EEEE, MMMM d, yyyy",
+                            temp_show_list.get(i).getOnAirDate()));
+                }
                 mSetDateButton.setVisibility(View.VISIBLE);
                 break;
             }
@@ -181,7 +186,8 @@ public class DetailTVFragment  extends Fragment {
                 .setContentText("Deleted from WatchList")
                 .setSmallIcon(android.R.drawable.stat_sys_warning);
 
-        NotificationManager mgr= (NotificationManager) getActivity().getSystemService(getActivity().NOTIFICATION_SERVICE);
+        NotificationManager mgr= (NotificationManager) getActivity()
+                .getSystemService(getActivity().NOTIFICATION_SERVICE);
         mgr.notify(442268189, builder.build());
     }
 
@@ -226,10 +232,11 @@ public class DetailTVFragment  extends Fragment {
                             mTvShows.setOnAirDate(mAirDate);
                             new ManageSharedPref().removeTvShow(getActivity(), mTvShows);
                             new ManageSharedPref().addTvShow(getActivity(), mTvShows);
-                            mSetDateButton.setText(DateFormat.format("EEEE, MMMM d, yyyy", mTvShows.getOnAirDate()));
+                            mSetDateButton.setText(DateFormat.format("EEEE, MMMM d, yyyy",
+                                    mTvShows.getOnAirDate()));
                         }
                     })
-                    .setNegativeButton("Nope", new DialogInterface.OnClickListener() {
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                         }

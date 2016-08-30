@@ -84,7 +84,8 @@ public class TMDB {
     public String parseYTid(String show_id){
         String YT_id = "";
         try {
-            String url = Uri.parse("http://api.themoviedb.org/3/tv/" + show_id + "/videos?").buildUpon()
+            String url = Uri.parse("http://api.themoviedb.org/3/tv/" + show_id + "/videos?")
+                    .buildUpon()
                     .appendQueryParameter("api_key", API_KEY).build().toString();
             String jsonIdString = getUrlString(url);
 
