@@ -100,7 +100,6 @@ public class DetailTVFragment  extends Fragment {
         });
 
         mSaveToShrPrfButton = (Button) v.findViewById(R.id.saveToSP);
-        checkWatchList();
         mSaveToShrPrfButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,13 +113,13 @@ public class DetailTVFragment  extends Fragment {
                                     new ManageSharedPref().removeTvShow(getActivity(), mTvShows);
                                     mSaveToShrPrfButton.setText("Add to WatchList");
                                     mSaveToShrPrfButton.setBackgroundColor(Color.parseColor("#607d8b"));
-                                    raiseNotification();
+                                    mSetDateButton.setVisibility(View.INVISIBLE);
+                                    //raiseNotification();
                                 }
                             })
                             .setNegativeButton("Nope", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-
                                 }
                             })
                             .show();
@@ -128,6 +127,7 @@ public class DetailTVFragment  extends Fragment {
                     new ManageSharedPref().addTvShow(getActivity(), mTvShows);
                     mSaveToShrPrfButton.setText("Added! Delete it?");
                     mSaveToShrPrfButton.setBackgroundColor(Color.parseColor("#37474f"));
+                    mSetDateButton.setVisibility(View.VISIBLE);
                 }
 
             }
@@ -141,7 +141,6 @@ public class DetailTVFragment  extends Fragment {
             @Override
             public void onClick(View view) {
                 if(mTvShows.getOnAirDate() == null){
-                    mTvShows.setOnAirDate(new Date());
                     FragmentManager manager = getFragmentManager();
                     SetOnAirDate calendar = new SetOnAirDate();
                     calendar.show(manager, "MyDate");
@@ -151,6 +150,7 @@ public class DetailTVFragment  extends Fragment {
             }
         });
 
+        checkWatchList();
         return v;
     }
 
@@ -170,6 +170,7 @@ public class DetailTVFragment  extends Fragment {
             if(temp_show_list.get(i).getShowId().equals(mTvShows.getShowId())){
                 mSaveToShrPrfButton.setText("Delete from list?");
                 mSaveToShrPrfButton.setBackgroundColor(Color.parseColor("#37474f"));
+                mSetDateButton.setVisibility(View.VISIBLE);
                 break;
             }
         }
@@ -228,7 +229,14 @@ public class DetailTVFragment  extends Fragment {
                             int day = mDatePicker.getDayOfMonth();
                             mAirDate = new GregorianCalendar(year, month, day).getTime();
                             mTvShows.setOnAirDate(mAirDate);
+                            new ManageSharedPref().removeTvShow(getActivity(), mTvShows);
+                            new ManageSharedPref().addTvShow(getActivity(), mTvShows);
                             mSetDateButton.setText(DateFormat.format("EEEE, MMMM d, y", mTvShows.getOnAirDate()));
+                        }
+                    })
+                    .setNegativeButton("Nope", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
                         }
                     })
                     .create();
