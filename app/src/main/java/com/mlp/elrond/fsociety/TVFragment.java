@@ -127,7 +127,8 @@ public class TVFragment extends Fragment {
 
         @Override
         public PostersViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new PostersViewHolder(LayoutInflater.from(getActivity()).inflate(R.layout.display_image, parent, false));
+            return new PostersViewHolder(LayoutInflater.from(getActivity())
+                    .inflate(R.layout.display_image, parent, false));
         }
 
         @Override

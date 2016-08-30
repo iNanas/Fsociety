@@ -133,6 +133,17 @@
                     android:layout_marginLeft="20dp"/>
             </LinearLayout>
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/on_air_date_default"
+                android:id="@+id/onAirDate"
+                android:background="@color/colorBlueGray500"
+                android:textColor="#ffffff"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                />
+
         </LinearLayout>
 
 </LinearLayout>
