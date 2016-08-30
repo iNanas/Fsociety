@@ -7,4 +7,5 @@ Current features:
   - Receiving detail information about each TV shows: description, posters, ratings etc;
   - Ability to watch trailer in Youtube app or browser;
   - Ability to add/remove TV shows to/from WatchList;
+  - Ability to set "On the Air" date for shows from WatchList;
   - Support for both portrait and landscape orientations.
