@@ -131,18 +131,20 @@
                     android:layout_weight="1"
                     android:layout_marginRight="30dp"
                     android:layout_marginLeft="20dp"/>
-            </LinearLayout>
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/on_air_date_default"
-                android:id="@+id/onAirDate"
-                android:background="@color/colorBlueGray500"
-                android:textColor="#ffffff"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="5dp"
-                />
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/on_air_date_default"
+                    android:id="@+id/onAirDate"
+                    android:background="@color/colorBlueGray500"
+                    android:textColor="#ffffff"
+                    android:layout_marginRight="30dp"
+                    android:visibility="invisible"
+                    android:layout_weight="1"
+                    android:drawableRight="@drawable/on_the_air_date"
+                    android:layout_marginLeft="10dp"/>
+            </LinearLayout>
 
         </LinearLayout>
 

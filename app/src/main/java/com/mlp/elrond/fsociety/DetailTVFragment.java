@@ -92,7 +92,7 @@ public class DetailTVFragment  extends Fragment {
             @Override
             public void onClick(View view) {
                 if(mTYid.matches(".+")){
-                    openInYT(mTYid);
+                    openInYouTube(mTYid);
                 }else{
                     Toast.makeText(getActivity(), "Trailer is not available :(", Toast.LENGTH_SHORT).show();
                 }
@@ -135,18 +135,14 @@ public class DetailTVFragment  extends Fragment {
 
         mSetDateButton = (Button) v.findViewById(R.id.onAirDate);
         if(mTvShows.getOnAirDate() != null){
-            mSetDateButton.setText(DateFormat.format("EEEE, MMMM d, y", mTvShows.getOnAirDate()));
+            mSetDateButton.setText(DateFormat.format("EEEE, MMMM d, yyyy", mTvShows.getOnAirDate()));
         }
         mSetDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mTvShows.getOnAirDate() == null){
-                    FragmentManager manager = getFragmentManager();
-                    SetOnAirDate calendar = new SetOnAirDate();
-                    calendar.show(manager, "MyDate");
-                }else{
-                    Toast.makeText(getActivity(), "Temporary not changeable :(", Toast.LENGTH_SHORT).show();
-                }
+                FragmentManager manager = getFragmentManager();
+                SetOnAirDate calendar = new SetOnAirDate();
+                calendar.show(manager, "MyDate");
             }
         });
 
@@ -154,7 +150,7 @@ public class DetailTVFragment  extends Fragment {
         return v;
     }
 
-    public void openInYT(String id){
+    public void openInYouTube(String id){
         try {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + id));
             startActivity(intent);
@@ -170,6 +166,7 @@ public class DetailTVFragment  extends Fragment {
             if(temp_show_list.get(i).getShowId().equals(mTvShows.getShowId())){
                 mSaveToShrPrfButton.setText("Delete from list?");
                 mSaveToShrPrfButton.setBackgroundColor(Color.parseColor("#37474f"));
+                mSetDateButton.setText(DateFormat.format("EEEE, MMMM d, yyyy", temp_show_list.get(i).getOnAirDate()));
                 mSetDateButton.setVisibility(View.VISIBLE);
                 break;
             }
@@ -224,14 +221,12 @@ public class DetailTVFragment  extends Fragment {
                     .setPositiveButton("Do it!", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            int year = mDatePicker.getYear();
-                            int month = mDatePicker.getMonth();
-                            int day = mDatePicker.getDayOfMonth();
-                            mAirDate = new GregorianCalendar(year, month, day).getTime();
+                            mAirDate = new GregorianCalendar(mDatePicker.getYear(),
+                                    mDatePicker.getMonth(), mDatePicker.getDayOfMonth()).getTime();
                             mTvShows.setOnAirDate(mAirDate);
                             new ManageSharedPref().removeTvShow(getActivity(), mTvShows);
                             new ManageSharedPref().addTvShow(getActivity(), mTvShows);
-                            mSetDateButton.setText(DateFormat.format("EEEE, MMMM d, y", mTvShows.getOnAirDate()));
+                            mSetDateButton.setText(DateFormat.format("EEEE, MMMM d, yyyy", mTvShows.getOnAirDate()));
                         }
                     })
                     .setNegativeButton("Nope", new DialogInterface.OnClickListener() {
