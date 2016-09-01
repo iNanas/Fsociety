@@ -25,7 +25,7 @@ public class ManageNotifications extends BroadcastReceiver {
 
         Calendar firingCal = Calendar.getInstance();
 
-        firingCal.set(Calendar.HOUR, 6);
+        firingCal.set(Calendar.HOUR_OF_DAY, 8);
         firingCal.set(Calendar.MINUTE, 20);
         firingCal.set(Calendar.SECOND, 0);
 

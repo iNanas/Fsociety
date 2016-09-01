@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
@@ -28,7 +29,6 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 public class DetailTVFragment  extends Fragment {
     private static final String OBJECT = "tv_show_id";
@@ -133,7 +133,7 @@ public class DetailTVFragment  extends Fragment {
 
         mSetDateButton = (Button) v.findViewById(R.id.onAirDate);
         if(mTvShows.getOnAirDate() != null){
-            mSetDateButton.setText(DateFormat.format("EEEE, MMMM d, yyyy", mTvShows.getOnAirDate()));
+            mSetDateButton.setText(DateFormat.format("EEEE, MMMM d, h:mm", mTvShows.getOnAirDate()));
         }
         mSetDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,7 +166,7 @@ public class DetailTVFragment  extends Fragment {
                 mSaveToShrPrfButton.setText("Delete from list?");
                 mSaveToShrPrfButton.setBackgroundColor(Color.parseColor("#37474f"));
                 if(temp_show_list.get(i).getOnAirDate() != null){
-                    mSetDateButton.setText(DateFormat.format("EEEE, MMMM d, yyyy",
+                    mSetDateButton.setText(DateFormat.format("EEEE, MMMM d, h:mm",
                             temp_show_list.get(i).getOnAirDate()));
                 }
                 mSetDateButton.setVisibility(View.VISIBLE);
@@ -191,6 +191,7 @@ public class DetailTVFragment  extends Fragment {
     private class SetOnAirDate  extends DialogFragment {
         private Date mAirDate;
         private DatePicker mDatePicker;
+        private TimePicker mTimePicker;
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -204,6 +205,7 @@ public class DetailTVFragment  extends Fragment {
 
             mDatePicker = (DatePicker) v.findViewById(R.id.calendar_date_picker);
             mDatePicker.init(year, month, day, null);
+            mTimePicker = (TimePicker) v.findViewById(R.id.calendar_timePicker);
 
             return new AlertDialog.Builder(getActivity())
                     .setView(v)
@@ -211,12 +213,17 @@ public class DetailTVFragment  extends Fragment {
                     .setPositiveButton("Do it!", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            mAirDate = new GregorianCalendar(mDatePicker.getYear(),
-                                    mDatePicker.getMonth(), mDatePicker.getDayOfMonth()).getTime();
+                            Calendar set_date = Calendar.getInstance();
+                            set_date.set(Calendar.YEAR, mDatePicker.getYear());
+                            set_date.set(Calendar.MONTH, mDatePicker.getMonth());
+                            set_date.set(Calendar.DAY_OF_MONTH, mDatePicker.getDayOfMonth());
+                            set_date.set(Calendar.HOUR_OF_DAY, mTimePicker.getCurrentHour());
+                            set_date.set(Calendar.MINUTE, mTimePicker.getCurrentMinute());
+                            mAirDate = set_date.getTime();
                             mTvShows.setOnAirDate(mAirDate);
                             new ManageSharedPref().removeTvShow(getActivity(), mTvShows);
                             new ManageSharedPref().addTvShow(getActivity(), mTvShows);
-                            mSetDateButton.setText(DateFormat.format("EEEE, MMMM d, yyyy",
+                            mSetDateButton.setText(DateFormat.format("EEEE, MMMM d, h:mm",
                                     mTvShows.getOnAirDate()));
                         }
                     })
