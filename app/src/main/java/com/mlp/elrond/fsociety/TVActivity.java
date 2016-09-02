@@ -24,6 +24,6 @@ public class TVActivity extends AppCompatActivity {
             fm.beginTransaction().add(R.id.fragment_container, fragment).commit();
         }
 
-        //ManageNotifications.scheduleAlarms(this);
+        ManageNotifications.scheduleAlarms(this);
     }
 }

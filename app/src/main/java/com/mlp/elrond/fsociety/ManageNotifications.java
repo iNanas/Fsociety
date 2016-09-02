@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 public class ManageNotifications extends BroadcastReceiver {
+    //private static String mShowTitle;
     @Override
     public void onReceive(Context context, Intent intent) {
         scheduleAlarms(context);
@@ -24,22 +25,10 @@ public class ManageNotifications extends BroadcastReceiver {
         Intent notification_intent = new Intent(context, ScheduledService.class);
         PendingIntent pendingIntent = PendingIntent.getService(context, 0, notification_intent, 0);
 
-        /*
-        Calendar firingCal = Calendar.getInstance();
-        firingCal.set(Calendar.YEAR, 2016);
-        firingCal.set(Calendar.MONTH, Calendar.SEPTEMBER);
-        firingCal.set(Calendar.DATE, 2);
-        firingCal.set(Calendar.HOUR, 3);
-        firingCal.set(Calendar.MINUTE, 44);
-        firingCal.set(Calendar.SECOND, 0);
-        long intendedTime = firingCal.getTimeInMillis();
-                notification_alarm.setRepeating
-                (AlarmManager.RTC, intendedTime, AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent);
-        */
-
         if(new ManageSharedPref().loadTvShows(context).size() != 0) {
             List<TvShows> watchListShows = new ManageSharedPref().loadTvShows(context);
             Date tvShowDate = watchListShows.get(0).getOnAirDate();
+            //mShowTitle = watchListShows.get(0).getName();
             long onAirTime = tvShowDate.getTime();
             notification_alarm.setRepeating(AlarmManager.RTC, onAirTime, AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent);
         }
@@ -60,6 +49,7 @@ public class ManageNotifications extends BroadcastReceiver {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
             builder.setAutoCancel(true)
                     .setDefaults(Notification.DEFAULT_ALL)
+                    //.setContentTitle(mShowTitle)
                     .setContentTitle("Awesome Title")
                     .setContentText("Awesome Text")
                     .setSmallIcon(android.R.drawable.stat_sys_warning);
