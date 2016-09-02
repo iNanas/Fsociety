@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class DetailTVFragment  extends Fragment {
+public class DetailTVFragment extends Fragment {
     private static final String OBJECT = "tv_show_id";
     private final static String BG_PATH = "http://image.tmdb.org/t/p/w500/";
 
@@ -112,7 +112,6 @@ public class DetailTVFragment  extends Fragment {
                                     mSaveToShrPrfButton.setText("Add to WatchList");
                                     mSaveToShrPrfButton.setBackgroundColor(Color.parseColor("#607d8b"));
                                     mSetDateButton.setVisibility(View.INVISIBLE);
-                                    //raiseNotification();
                                 }
                             })
                             .setNegativeButton("Nope", new DialogInterface.OnClickListener() {
@@ -133,7 +132,7 @@ public class DetailTVFragment  extends Fragment {
 
         mSetDateButton = (Button) v.findViewById(R.id.onAirDate);
         if(mTvShows.getOnAirDate() != null){
-            mSetDateButton.setText(DateFormat.format("EEEE, MMMM d, h:mm", mTvShows.getOnAirDate()));
+            mSetDateButton.setText(DateFormat.format("EEE, MMM d, h:mm a", mTvShows.getOnAirDate()));
         }
         mSetDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,7 +165,7 @@ public class DetailTVFragment  extends Fragment {
                 mSaveToShrPrfButton.setText("Delete from list?");
                 mSaveToShrPrfButton.setBackgroundColor(Color.parseColor("#37474f"));
                 if(temp_show_list.get(i).getOnAirDate() != null){
-                    mSetDateButton.setText(DateFormat.format("EEEE, MMMM d, h:mm",
+                    mSetDateButton.setText(DateFormat.format("EEE, MMM d, h:mm a",
                             temp_show_list.get(i).getOnAirDate()));
                 }
                 mSetDateButton.setVisibility(View.VISIBLE);
@@ -188,7 +187,7 @@ public class DetailTVFragment  extends Fragment {
         }
     }
 
-    private class SetOnAirDate  extends DialogFragment {
+    public class SetOnAirDate extends DialogFragment {
         private Date mAirDate;
         private DatePicker mDatePicker;
         private TimePicker mTimePicker;
@@ -223,7 +222,7 @@ public class DetailTVFragment  extends Fragment {
                             mTvShows.setOnAirDate(mAirDate);
                             new ManageSharedPref().removeTvShow(getActivity(), mTvShows);
                             new ManageSharedPref().addTvShow(getActivity(), mTvShows);
-                            mSetDateButton.setText(DateFormat.format("EEEE, MMMM d, h:mm",
+                            mSetDateButton.setText(DateFormat.format("EEE, MMM d, h:mm a",
                                     mTvShows.getOnAirDate()));
                         }
                     })
