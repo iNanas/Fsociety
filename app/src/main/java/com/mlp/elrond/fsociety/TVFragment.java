@@ -22,7 +22,6 @@ import java.util.List;
 public class TVFragment extends Fragment {
 
     private RecyclerView mTvRv;
-    private List<TvShows> mTvShows;
     private List<TvShows> mWatchListShows = new ArrayList<>();
     private static final String IMG_PATH = "http://api.themoviedb.org/3/tv/";
 
@@ -36,10 +35,9 @@ public class TVFragment extends Fragment {
         setHasOptionsMenu(true);
         if(ManageSharedPref.getShowFilter(getActivity()) == null){
             startGetShowAsyncTask("on_the_air");
-            Toast.makeText(getActivity(), "On the Air shows", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), R.string.on_the_air_shows_sh, Toast.LENGTH_LONG).show();
         }else{
             startGetShowAsyncTask(ManageSharedPref.getShowFilter(getActivity()));
-
         }
     }
 
@@ -52,9 +50,9 @@ public class TVFragment extends Fragment {
         return v;
     }
 
-    private void setupAdapter(List<TvShows> tvshows) {
+    private void setupAdapter(List<TvShows> tvShows) {
         if (isAdded()) {
-            mTvRv.setAdapter(new TvShowsAdapter(tvshows));
+            mTvRv.setAdapter(new TvShowsAdapter(tvShows));
         }
     }
 
@@ -84,13 +82,12 @@ public class TVFragment extends Fragment {
                     mWatchListShows = new ManageSharedPref().loadTvShows(getActivity());
                     setupAdapter(mWatchListShows);
                 }else{
-                    Toast.makeText(getActivity(), "WatchList is empty", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), R.string.empty_watchlist, Toast.LENGTH_LONG).show();
                 }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-
     }
 
     private class PostersViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -110,7 +107,6 @@ public class TVFragment extends Fragment {
                     .placeholder(R.drawable.background)
                     .into(mPosterImageView);
         }
-
 
         @Override
         public void onClick(View view) {
@@ -143,6 +139,7 @@ public class TVFragment extends Fragment {
     }
 
     private class GetShowAsyncTask extends AsyncTask<String,Void,List<TvShows>>{
+        private List<TvShows> mTvShows;
 
         @Override
         protected List<TvShows> doInBackground(String... str) {

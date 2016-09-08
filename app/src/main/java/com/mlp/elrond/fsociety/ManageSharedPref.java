@@ -36,25 +36,25 @@ public class ManageSharedPref {
         editor.putString(SHOWS_JSON, jsonTvShows);
         editor.commit();
     }
-    public ArrayList loadTvShows(Context context) {
+    public ArrayList<TvShows> loadTvShows(Context context) {
         SharedPreferences settings;
-        List TvShows = new ArrayList();
+        List<TvShows> TvShows = new ArrayList<>();
         settings = context.getSharedPreferences(SH_PREF,Context.MODE_PRIVATE);
         if (settings.contains(SHOWS_JSON)) {
             String jsonTvShows = settings.getString(SHOWS_JSON, null);
             Gson gson = new Gson();
             TvShows[] showsItems = gson.fromJson(jsonTvShows,TvShows[].class);
             TvShows = Arrays.asList(showsItems);
-            TvShows = new ArrayList(TvShows);
+            TvShows = new ArrayList<>(TvShows);
         } else{
-            return (ArrayList) TvShows;
+            return (ArrayList<TvShows>) TvShows;
         }
-        return (ArrayList) TvShows;
+        return (ArrayList<TvShows>) TvShows;
     }
     public void addTvShow(Context context, TvShows new_tvShow) {
-        List TvShows = loadTvShows(context);
+        List<TvShows> TvShows = loadTvShows(context);
         if (TvShows == null)
-            TvShows = new ArrayList();
+            TvShows = new ArrayList<>();
         TvShows.add(new_tvShow);
         storeTvShows(context, TvShows);
     }

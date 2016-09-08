@@ -44,18 +44,15 @@ public class TMDB {
 
     public List<TvShows> getJson(String starting_url){
         List<TvShows> showsList = new ArrayList<>();
-        String url_main = starting_url;
 
         try {
-            String url = Uri.parse(url_main).buildUpon()
+            String url = Uri.parse(starting_url).buildUpon()
                 .appendQueryParameter("api_key", API_KEY).build().toString();
             String jsonString = getUrlString(url);
 
             JSONObject jsonMain = new JSONObject(jsonString);
             parseJson(showsList, jsonMain);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
 
@@ -93,9 +90,7 @@ public class TMDB {
             JSONArray j_array = jsonTrailer.getJSONArray("results");
             JSONObject id_object = j_array.getJSONObject(0);
             YT_id = id_object.getString("key");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
 

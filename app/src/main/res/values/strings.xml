@@ -20,5 +20,10 @@
     <string name="dialog_negative_cancel">Cancel</string>
     <string name="on_the_air_since">On the air since: %1$s</string>
     <string name="ratings_max">%1$s\//10</string>
+    <string name="on_the_air_shows_sh">On the Air shows</string>
+    <string name="empty_watchlist">WatchList is empty</string>
+
+
+
 
 </resources>
