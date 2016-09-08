@@ -8,5 +8,17 @@
     <string name="watch_trailer">Watch trailer</string>
     <string name="add_to_watch_list">Add to WatchList</string>
     <string name="on_air_date_default">Set On the Air Date</string>
+    <string name="trailer_not_available">Trailer is not available :(</string>
+    <string name="title_confirmation">Confirmation</string>
+    <string name="dialog_delete_message">Delete this TV show from WatchList?</string>
+    <string name="button_delete_text">Delete from list?</string>
+    <string name="dialog_positive_answer">Yep!</string>
+    <string name="dialog_negative_answer">Nope</string>
+    <string name="delete_after_adding">Added! Delete it?</string>
+    <string name="set_air_date">Set On the Air Date</string>
+    <string name="set_it">Set it!</string>
+    <string name="dialog_negative_cancel">Cancel</string>
+    <string name="on_the_air_since">On the air since: %1$s</string>
+    <string name="ratings_max">%1$s\//10</string>
 
 </resources>

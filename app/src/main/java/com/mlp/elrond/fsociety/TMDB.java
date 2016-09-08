@@ -73,7 +73,7 @@ public class TMDB {
             show.setBackgroundUrl(show_object.getString("backdrop_path"));
             show.setOverview(show_object.getString("overview"));
             show.setRatings(show_object.getString("vote_average"));
-            show.setFAD(show_object.getString("first_air_date"));
+            show.setFirstAirDate(show_object.getString("first_air_date"));
             show.setShowId(show_object.getString("id"));
 
             shows_list.add(show);

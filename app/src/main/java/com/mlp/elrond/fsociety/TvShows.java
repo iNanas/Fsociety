@@ -10,7 +10,7 @@ public class TvShows implements Parcelable {
     private String mPosterUrl;
     private String mBackgroundUrl;
     private String mOverview;
-    private String mFAD;
+    private String mFirstAirDate;
     private String mRatings;
     private String mShowId;
     private Date mOnAirDate;
@@ -48,12 +48,12 @@ public class TvShows implements Parcelable {
         mBackgroundUrl = backgroundUrl;
     }
 
-    public String getFAD() {
-        return mFAD;
+    public String getFirstAirDate() {
+        return mFirstAirDate;
     }
 
-    public void setFAD(String FAD) {
-        mFAD = FAD;
+    public void setFirstAirDate(String firstAirDate) {
+        mFirstAirDate = firstAirDate;
     }
 
     public String getOverview() {
@@ -93,7 +93,7 @@ public class TvShows implements Parcelable {
         mPosterUrl = in.readString();
         mBackgroundUrl = in.readString();
         mOverview = in.readString();
-        mFAD = in.readString();
+        mFirstAirDate = in.readString();
         mRatings = in.readString();
         mShowId = in.readString();
         long tmpMOnAirDate = in.readLong();
@@ -111,7 +111,7 @@ public class TvShows implements Parcelable {
         dest.writeString(mPosterUrl);
         dest.writeString(mBackgroundUrl);
         dest.writeString(mOverview);
-        dest.writeString(mFAD);
+        dest.writeString(mFirstAirDate);
         dest.writeString(mRatings);
         dest.writeString(mShowId);
         dest.writeLong(mOnAirDate != null ? mOnAirDate.getTime() : -1L);
